@@ -1,0 +1,37 @@
+﻿First working idea
+- Read the input file and store the information in a dictionary (photo id to be the key and the tags as a value). Use a set to store the values, because it enforces uniqueness with the tags and with the intersect with option, i'd be able to calculate the interest factor.
+- Add the first photo to the slide and remove it from the dictionary.
+- While dictionary is not empty, using the current slide, iterate through the dictionary calculating the interest factor and keep a record of the highest which will be the next photo in the slide
+- We pick the photo that produced the highest interestin factor and add it to the slide.
+- Repeat the procedure 3 and 4.
+
+More information on procedure 1:
+- If the photo is horizontal, add it directly to the dictionary directly.
+- If the photo is vertical, look for a second vertical photo and combine them.
+
+How do I add two vertical photo? How do I represent their ID in the dictionary? How do I avoid repetition of the IDs in such a case?
+What if instead of entering the IDs as int, I do it as strings. Then add a suffix to their ID to show i joined two vertical photos? Mmmmmh.. This can work. 
+For example, a photo with ID 1 and 2 would be 1+2.. The '+' symbolizing is is two photos.
+
+Let's think about the efficiency of this code for a moment
+Removing an element from the dictionary(implemened with hash-table) takes a constant time O(1). Adding an elment also takes a constant time. 
+Hash sets also implement adding, seaching and deletion in a constant time. 
+To be sure about this. Let's work on the idea first, then test for performance, but I think it will be fast enough.
+
+Progress
+I'm in this part where I keep running the program and it has a bug and I can't find it, hehe.. But I think the problem arises form how I keep the Id of the photo with the highest interest factor.
+
+The idea actually worked, but it took a lot of time to create the slideshow for the bigger files with the 80,000 and I think, I'll do the same thing. but improve on something a bit to reduce the memory comsumption, hopefully speed up the creating of slideshow
+
+New Idea: Improved
+#Read the input file.
+- Store everything in a dictionary (Dictionary<K,V>), The photo ID would be entered as string for the key, while the tags would be entered as set (HashSet<T>) to be value of the dictionary
+- If a photo is horizontal, we add it to the dictionary as it is else if a photo is vertical, we keep it and for the next vertical photo we find, we add the two to be one photo and keep it in the dictionary. Their ID would be the ID of the two photos concatenated with the + sign i.e. for example, if the first photo has a ID of 12 and the second photo has an ID of 17, it would be concatenated to be "12+17" - this would be helpful when printing the submission file because it wold be easy to split and it also helps reduce collsion in the dictionary implemented with hash-tables.
+- Inform the user that all values have been entered.
+
+# Processing the input in the dictionary to generate a slide.
+- The aim is to improve the earlier idea. Basically our last idea ran in O(n^n) complexity which is so slow. We want to find a way to keep the result we did earlier. 
+Another better Idea, I think...lol. What if we use a list to keep the photos. A list and a hash set. Lists have a constant time when accessed by index.
+
+- Store verything in a list, the ID would be represented by the index and the value would be a set of tags. 
+- The index of the photo we add to the slideshow, we also add it to the set implemented with hash table because of its fast addition and seach so we don't use them to calculate the interst factor again 
